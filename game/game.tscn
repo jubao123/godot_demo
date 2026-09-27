@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://fpd0p0b43b5o"]
+
+[ext_resource type="Texture2D" uid="uid://bi7ylybehy5a2" path="res://AssetBundle/Sprites/ForestBackground.png" id="1_iukft"]
+[ext_resource type="Script" uid="uid://cgtquarrwt37n" path="res://game/game_controller.gd" id="1_kldst"]
+[ext_resource type="PackedScene" uid="uid://cnkma5je2omq1" path="res://actors/player/player.tscn" id="2_gl6un"]
+[ext_resource type="PackedScene" uid="uid://su10442lxu0m" path="res://actors/enemies/slime.tscn" id="3_j5yw3"]
+[ext_resource type="Script" path="res://game/enemy_spawner.gd" id="4_spawner"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" uid="uid://cjrf5nnc2742" path="res://projectiles/bullet.tscn" id="6_bullet"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bkn3q"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_kldst")
+bullet_scene = ExtResource("6_bullet")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="bk 1" type="Sprite2D" parent="Background" unique_id=1677236473]
+position = Vector2(-120, 0)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="bk 2" type="Sprite2D" parent="Background" unique_id=1348949017]
+position = Vector2(120, 0)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="bk 3" type="Sprite2D" parent="Background" unique_id=1726743173]
+position = Vector2(360, 0)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="bk 4" type="Sprite2D" parent="Background" unique_id=164184562]
+position = Vector2(-360, 0)
+texture = ExtResource("1_iukft")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1986489773]
+zoom = Vector2(2.475, 2.475)
+metadata/_edit_lock_ = true
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="World" unique_id=1597565414 instance=ExtResource("2_gl6un")]
+position = Vector2(-156, 82)
+
+[node name="Boundary" type="Node2D" parent="." unique_id=645724283]
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Boundary" unique_id=1649792312]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D" unique_id=1682127249]
+position = Vector2(0, 127)
+shape = SubResource("WorldBoundaryShape2D_bkn3q")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Boundary" unique_id=367287093]
+position = Vector2(-104, 0)
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D2" unique_id=455251398]
+position = Vector2(0, 127)
+shape = SubResource("WorldBoundaryShape2D_bkn3q")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Boundary" unique_id=1397966109]
+position = Vector2(105.00001, -1)
+rotation = -1.565723
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D3" unique_id=1396741780]
+position = Vector2(0, 127)
+shape = SubResource("WorldBoundaryShape2D_bkn3q")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Boundary" unique_id=2129777109]
+position = Vector2(0, 156)
+rotation = -3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundary/StaticBody2D4" unique_id=1787236345]
+position = Vector2(0, 127)
+shape = SubResource("WorldBoundaryShape2D_bkn3q")
+metadata/_edit_lock_ = true
+
+[node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("world")]
+script = ExtResource("4_spawner")
+enemy_scene = ExtResource("3_j5yw3")
+world = NodePath("../World")
+
+[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
+wait_time = 3.0
+
+[node name="RestartTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HUD" parent="." instance=ExtResource("5_hud")]
