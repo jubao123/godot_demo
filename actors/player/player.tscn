@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnkma5je2omq1"]
 
-[ext_resource type="Script" uid="uid://bjvukgh218ces" path="res://actors/player/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" path="res://actors/player/Player.cs" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://ib86vhdmewly" path="res://AssetBundle/Sprites/Foxy.png" id="1_v0iea"]
 [ext_resource type="AudioStream" uid="uid://bdyum6h1ctt6x" path="res://AssetBundle/Audio/Gun.mp3" id="4_vgqql"]
 [ext_resource type="AudioStream" uid="uid://cajk1hxoycypy" path="res://AssetBundle/Audio/GameOver.mp3" id="5_fkybt"]
@@ -138,10 +138,10 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3qg7s"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1597565414 node_paths=PackedStringArray("animator")]
+[node name="Player" type="CharacterBody2D" unique_id=1597565414 node_paths=PackedStringArray("Animator")]
 script = ExtResource("1_cvnsp")
-move_speed = 100.0
-animator = NodePath("AnimatedSprite2D")
+MoveSpeed = 100.0
+Animator = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=577396415]
 sprite_frames = SubResource("SpriteFrames_3qg7s")
@@ -168,4 +168,4 @@ parameters/looping = true
 stream = ExtResource("5_fkybt")
 volume_db = -5.2
 
-[connection signal="timeout" from="ShotTimer" to="." method="_on_fire"]
+[connection signal="timeout" from="ShotTimer" to="." method="OnFire"]

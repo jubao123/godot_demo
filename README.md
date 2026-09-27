@@ -1,6 +1,6 @@
 # demo02
 
-Godot 4.7 / GDScript 2D 游戏，使用 Forward Plus 渲染器。WASD 移动，静止时每秒自动射击；敌人逐渐加快生成，玩家死亡后立即停止刷怪和计分，保留死亡表现，3 秒后自动重开。
+Godot 4.7 / C# (.NET) 2D 游戏，使用 Forward Plus 渲染器。WASD 移动，静止时每秒自动射击；敌人逐渐加快生成，玩家死亡后立即停止刷怪和计分，保留死亡表现，3 秒后自动重开。
 
 ## 目录与职责
 
@@ -12,10 +12,10 @@ Godot 4.7 / GDScript 2D 游戏，使用 Forward Plus 渲染器。WASD 移动，�
 | `projectiles/` | 子弹场景、移动、5 秒生命周期、一次性消耗 |
 | `ui/` | HUD 场景与显示接口 |
 | `audio/` | 跨重开保留的 BGM 自动加载场景 |
-| `tests/` | Godot 原生无界面回归脚本，无第三方依赖 |
+| `tests/` | C# 无界面回归脚本（`SceneTree` 主循环），无第三方依赖 |
 | `AssetBundle/`、`Build/` | 原有素材及许可、原有导出文件 |
 
-主场景将背景、边界、世界和 HUD 分开。玩家、敌人、子弹都是 `World` 的直接子节点，共用 Y 排序。旧场景 UID 和脚本 `.gd.uid` 已保留，素材路径不变。`AGENTS.md` 按要求保留原文，其中旧目录说明以本 README 为准。
+主场景将背景、边界、世界和 HUD 分开。玩家、敌人、子弹都是 `World` 的直接子节点，共用 Y 排序。场景 UID 已保留，脚本已迁移为 C#（`*.cs`），素材路径不变。`AGENTS.md` 按要求保留原文，其中旧目录说明以本 README 为准。
 
 ## 信号与控制流程
 
@@ -36,10 +36,11 @@ Godot 4.7 / GDScript 2D 游戏，使用 Forward Plus 渲染器。WASD 移动，�
 godot --editor --path .
 godot --path .
 godot --headless --path . --editor --import --quit
-godot --headless --path . --script res://tests/regression.gd
+dotnet build demo02.csproj
+godot --headless --path . --main-loop Regression
 ```
 
-编辑器 F5 运行项目；打开 `game/game.tscn` 后 F6 运行当前场景。导出命令如下，需要匹配的导出模板，执行会替换原有输出：
+编辑器 F5 运行项目；打开 `game/game.tscn` 后 F6 运行当前场景。运行/导出前需先构建 C# 解决方案（`dotnet build demo02.csproj`，或由 .NET 版编辑器自动构建）。导出命令如下，需要匹配的导出模板，执行会替换原有输出：
 
 ```powershell
 godot --headless --path . --export-release "Windows Desktop" Build/demo02.exe
@@ -54,5 +55,5 @@ godot --headless --path . --export-release "Windows Desktop" Build/demo02.exe
 ## 扩展示例
 
 - 新增敌人变体：继承或复制 `actors/enemies/slime.tscn`，替换动画/素材并调整 `move_speed`；需要新行为时使用继承 `Enemy` 的脚本，保留一次性 `defeated` 语义。将刷怪器的 `enemy_scene` 指向新场景，无需修改玩家。
-- 修改 HUD：在 `ui/hud.tscn` 调整布局或在 `ui/hud.gd` 调整显示，保持 `set_score(value)`、`show_game_over()` 接口；无需修改玩家。
+- 修改 HUD：在 `ui/hud.tscn` 调整布局或在 `ui/HUD.cs` 调整显示，保持 `SetScore(value)`、`ShowGameOver()` 接口；无需修改玩家。
 - 调整难度：修改 `EnemySpawner` 的类型化导出属性；修改玩家射速或子弹速度时调整相应场景的导出属性。

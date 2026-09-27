@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://su10442lxu0m"]
 
 [ext_resource type="Texture2D" uid="uid://co4acvcra8bab" path="res://AssetBundle/Sprites/Slimer.png" id="1_81842"]
-[ext_resource type="Script" uid="uid://dc713bwpt5t6y" path="res://actors/enemies/enemy.gd" id="1_p1xxi"]
+[ext_resource type="Script" path="res://actors/enemies/Enemy.cs" id="1_p1xxi"]
 [ext_resource type="Texture2D" uid="uid://ba5or6r8rhpur" path="res://AssetBundle/Sprites/SlimerDeath.png" id="2_7yyg5"]
 [ext_resource type="AudioStream" uid="uid://ciypjsl78cknh" path="res://AssetBundle/Audio/EnemyDeath.mp3" id="4_xsyo3"]
 
@@ -125,9 +125,9 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3qg7s"]
 
-[node name="Slime" type="Area2D" unique_id=867238301 node_paths=PackedStringArray("animator")]
+[node name="Slime" type="Area2D" unique_id=867238301 node_paths=PackedStringArray("Animator")]
 script = ExtResource("1_p1xxi")
-animator = NodePath("AnimatedSprite2D")
+Animator = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1041500409]
 position = Vector2(0, -1)
@@ -143,5 +143,5 @@ shape = SubResource("CircleShape2D_3qg7s")
 stream = ExtResource("4_xsyo3")
 volume_db = -13.26
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="OnAreaEntered"]
+[connection signal="body_entered" from="." to="." method="OnBodyEntered"]

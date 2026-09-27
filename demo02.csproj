@@ -1,0 +1,9 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Demo02</RootNamespace>
+    <!-- Workaround: the SDK gates this on MSBuildAssemblyVersion >= 17.3, which
+         reports 17.0 here, leaving the source generator without a project dir. -->
+    <GodotProjectDirBase64>$([MSBuild]::ConvertToBase64('$(GodotProjectDir)'))</GodotProjectDirBase64>
+  </PropertyGroup>
+</Project>

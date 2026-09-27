@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/HUD.cs" id="1_hud"]
 [ext_resource type="FontFile" uid="uid://bafm8l5xj5x4s" path="res://AssetBundle/Uranus_Pixel_11Px.ttf" id="5_b2bpf"]
 
 [node name="HUD" type="CanvasLayer" unique_id=177737018]
